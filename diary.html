@@ -48,6 +48,9 @@
             font-size: 1em;
             resize: none;
         }
+        .textwhite{
+            color: white;
+        }
         .photo-upload {
             margin: 10px 0;
         }
@@ -84,18 +87,18 @@
 <body>
 
     <div class="container">
-        <div class="header">My Digital Diary</div>
+        <div class="header textwhite">My Digital Diary</div>
         
         <!-- Entry Section -->
         <div class="entry">
-            <div class="date">
+            <div class="date textwhite">
                 Date: <span id="current-date"></span>
             </div>
             <textarea class="content-area" id="content-area" placeholder="Write your diary entry here..."></textarea>
         </div>
 
         <div class="photo-upload">
-            <label for="photo-upload">Upload a special photo: </label>
+            <label for="photo-upload textwhite">Upload a special photo: </label>
             <input type="file" id="photo-upload" accept="image/*">
         </div>
 

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUST FOR YOUR SPECIAL DAYS</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
+
     <style>
         body {
             background-image: url('./images/image.jpg');
@@ -18,7 +25,7 @@
             width: 100%;
         }
         .container {
-            background-color: rgba(121, 97, 97, 0.7); /* Semi-transparent background */
+            background-color: rgba(121, 97, 97, 0.7);
             padding: 20px;
             border-radius: 10px;
             width: 80%;
@@ -29,7 +36,7 @@
             text-align: center;
             font-size: 32px;
             margin-bottom: 20px;
-            color: #f1de33; /* Vibrant yellow */
+            color: #f1de33;
             background: url('https://source.unsplash.com/1600x900/?sunset') no-repeat center center;
             background-size: cover;
             padding: 20px;
@@ -71,7 +78,7 @@
         .photo-upload-form button,
         .special-date-form button {
             padding: 12px 20px;
-            background-color: #7f111a; /* Vibrant green */
+            background-color: #7f111a;
             color: #fff;
             font-size: 18px;
             border: none;
@@ -106,7 +113,7 @@
             margin-top: 20px;
         }
         .event {
-            background-color: #456073; /* Vibrant blue */
+            background-color: #456073;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 10px;
@@ -125,7 +132,7 @@
 <body>
     <div class="container">
         <div class="header">JUST FOR YOUR SPECIAL DAYS</div>
-        
+
         <!-- Menu Bar -->
         <div class="menu-bar">
             <button onclick="copyContent()">Copy</button>
@@ -137,35 +144,46 @@
         <div class="special-date-form">
             <label for="event-date">Select Special Date:</label>
             <input type="date" id="event-date" required>
-            
+
             <label for="event-name">Event Name (e.g., Birthday, Anniversary):</label>
             <input type="text" id="event-name" placeholder="Event Name" required>
-            
+
             <label for="event-description">Event Description:</label>
             <textarea id="event-description" rows="4" placeholder="Write about the event..." required></textarea>
-            
+
             <button onclick="addSpecialEvent()">Add Event</button>
         </div>
 
         <!-- Photo Upload Form -->
-        <div class="photo-up]load-form">
+        <div class="photo-upload-form">
             <label for="photo-upload">Upload Your Photo:</label>
             <input type="file" id="photo-upload" accept="image/*">
             <button onclick="addPhoto()">Add Photo</button>
         </div>
 
         <!-- Special Events List -->
-        <div class="special-events" id="special-events-list">
-            <!-- Special events will be added here dynamically -->
-        </div>
+        <div class="special-events" id="special-events-list"></div>
 
         <!-- Photo Gallery -->
-        <div class="photo-gallery" id="photo-gallery">
-            <!-- Uploaded photos will be displayed here -->
-        </div>
+        <div class="photo-gallery" id="photo-gallery"></div>
     </div>
 
     <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-auth-domain",
+            projectId: "your-project-id",
+            storageBucket: "your-storage-bucket",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
         // Special Event Handling
         let specialEvents = [];
 
@@ -175,15 +193,24 @@
             const eventDescription = document.getElementById("event-description").value;
 
             if (eventDate && eventName && eventDescription) {
-                // Store the event
-                specialEvents.push({ date: eventDate, name: eventName, description: eventDescription });
+                // Store event in Firestore
+                db.collection("specialEvents").add({
+                    date: eventDate,
+                    name: eventName,
+                    description: eventDescription
+                })
+                .then(() => {
+                    alert("Event added!");
+                    displaySpecialEvents(); // Display all events from Firestore
+                })
+                .catch(error => {
+                    console.error("Error adding event: ", error);
+                });
 
                 // Clear the form
                 document.getElementById("event-date").value = "";
                 document.getElementById("event-name").value = "";
                 document.getElementById("event-description").value = "";
-
-                displaySpecialEvents();
             } else {
                 alert("Please fill out all fields.");
             }
@@ -191,39 +218,54 @@
 
         function displaySpecialEvents() {
             const eventsContainer = document.getElementById("special-events-list");
-            eventsContainer.innerHTML = "";
+            eventsContainer.innerHTML = ""; // Clear the existing events
 
-            specialEvents.forEach(event => {
-                const eventElement = document.createElement("div");
-                eventElement.classList.add("event");
-
-                eventElement.innerHTML = `
-                    <h4>${event.name} - ${event.date}</h4>
-                    <p>${event.description}</p>
-                `;
-
-                eventsContainer.appendChild(eventElement);
+            db.collection("specialEvents").get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    const event = doc.data();
+                    const eventElement = document.createElement("div");
+                    eventElement.classList.add("event");
+                    eventElement.innerHTML = `
+                        <h4>${event.name} - ${event.date}</h4>
+                        <p>${event.description}</p>
+                    `;
+                    eventsContainer.appendChild(eventElement);
+                });
             });
         }
 
-        
-        let photos = [];
-
+        // Photo Upload Handling
         function addPhoto() {
             const fileInput = document.getElementById("photo-upload");
             const file = fileInput.files[0];
 
             if (file) {
-                const reader = new FileReader();
+                const storageRef = storage.ref().child('photos/' + file.name);
+                const uploadTask = storageRef.put(file);
 
-                reader.onload = function (e) {
-                    const photoData = e.target.result;
-                    photos.push(photoData);
-                    displayPhotos();
-                    fileInput.value = "";
-                };
-
-                reader.readAsDataURL(file);
+                uploadTask.on('state_changed', 
+                    function(snapshot) {
+                        // You can add a progress bar or other actions here
+                    }, 
+                    function(error) {
+                        console.error("Error uploading photo: ", error);
+                    }, 
+                    function() {
+                        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                            // Save the photo URL in Firestore
+                            db.collection("photos").add({
+                                url: downloadURL,
+                                name: file.name
+                            })
+                            .then(() => {
+                                displayPhotos(); // Display all photos from Firestore
+                            })
+                            .catch(error => {
+                                console.error("Error adding photo URL: ", error);
+                            });
+                        });
+                    }
+                );
             } else {
                 alert("Please select an image to upload.");
             }
@@ -231,13 +273,16 @@
 
         function displayPhotos() {
             const gallery = document.getElementById("photo-gallery");
-            gallery.innerHTML = ""; // Clear current photos
+            gallery.innerHTML = ""; // Clear the current gallery
 
-            photos.forEach(photo => {
-                const photoElement = document.createElement("div");
-                photoElement.classList.add("photo");
-                photoElement.innerHTML = `<img src="${photo}" alt="Photo">`;
-                gallery.appendChild(photoElement);
+            db.collection("photos").get().then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    const photo = doc.data();
+                    const photoElement = document.createElement("div");
+                    photoElement.classList.add("photo");
+                    photoElement.innerHTML = `<img src="${photo.url}" alt="Photo">`;
+                    gallery.appendChild(photoElement);
+                });
             });
         }
 
@@ -262,6 +307,11 @@
                 alert("Nothing to save.");
             }
         }
+
+        // Display initial data from Firestore
+        displaySpecialEvents();
+        displayPhotos();
     </script>
 </body>
 </html>
+
