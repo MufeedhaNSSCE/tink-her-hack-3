@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Diary</title>
+    <style>
+        body {
+            background-image: url('./images/img3.jpeg');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            width: 100%;
+            font-family:"Playwrite IN", serif;
+            background-color:#e1b88d;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            
+            width: 80%;
+            margin: 20px auto;
+            background-color:#a69eac(27, 194, 241);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px#C8AAAA(255, 255, 225, 0.1);
+        }
+        .header {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .entry {
+            margin-bottom: 20px;
+        }
+        .date {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .content-area {
+            width: 100%;
+            height: 200px;
+            border: 1px solid#C8AAAA;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 1em;
+            resize: none;
+        }
+        .photo-upload {
+            margin: 10px 0;
+        }
+        .saved-entries {
+            margin-top: 30px;
+        }
+        .saved-entry {
+            background-color: #C8AAAA;
+            border: 1px solid #f4ebeb;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .saved-entry .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 5px 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border: 1px solid #f012ad;
+            background-color: #e1af95;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #87ca1a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">My Digital Diary</div>
+        
+        <!-- Entry Section -->
+        <div class="entry">
+            <div class="date">
+                Date: <span id="current-date"></span>
+            </div>
+            <textarea class="content-area" id="content-area" placeholder="Write your diary entry here..."></textarea>
+        </div>
+
+        <div class="photo-upload">
+            <label for="photo-upload">Upload a special photo: </label>
+            <input type="file" id="photo-upload" accept="image/*">
+        </div>
+
+        <button class="save-btn">Save Entry</button>
+
+        <!-- Saved Entries Section -->
+        <div class="saved-entries" id="saved-entries">
+            <!-- Saved diary entries will appear here -->
+        </div>
+    </div>
+
+    <script type="module" src="script2.js"></script>
+</body>
+</html>
+
+
+
+
+
+

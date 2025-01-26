@@ -1,41 +1,33 @@
 
 
-# [Project Name] 🎯
+# Digital Diary 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: innovision
 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: mufeedha-nss collage of engineering ,palakkad
+- Member 2: anagha cv-nss collafge of engineering ,palakkad
 
 ### Hosted Project Link
 [mention your project hosted project link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+a digital diary website allows users to securely record and organize their daily thoughts,memories and reflections online.it offers options to send notifications or reminders via email.
 
 ### The Problem statement
-[What ridiculous problem are you solving?]
+people often struggle to keep track of important dates and document personal experiences,leading to missed opportunities for celebration and connection.
 
 ### The Solution
-[How are you solving it? Keep it fun!]
+there need a digital diary that combines diary writing a calender for event management and timely email notifications for special occasions to help users stay connected and organized.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- html,css,javascript
+- vscode ,firebase
 
 ### Implementation
 For Software:
@@ -49,44 +41,16 @@ For Software:
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
-
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
+![alt text](image.png)code for signup page.
+![alt text](image-2.png)code for homepage.
+!![alt text](image-3.png)tab for adding special days.
 
 # Build Photos
 ![Team](Add photo of your team here)
 
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
 ### Project Demo
 # Video
-[Add your demo video link here]
+ere]
 *Explain what the video demonstrates*
 
 # Additional Demos

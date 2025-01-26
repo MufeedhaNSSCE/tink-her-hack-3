@@ -1,0 +1,9 @@
+.menu{
+    position:absolute;
+    top:2vh;
+    left:2vw;
+    background-image: url('./images/menu.png');
+    background-size: cover;
+    height:5vh;
+    width:5vh;
+}

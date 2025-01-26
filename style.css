@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, Georgia, 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    font-family: "Playwrite IN", serif;
+}
+
+.header {
+    font-family: "Playwrite IN", serif;
+    margin-top:-50vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+    color: #0a080e;
+    padding: 15px 20px;
+    text-align: center;
+}
+.footer {
+    background-color: #111115;
+    color: rgb(216, 101, 155);
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.picture{
+    width: 100%;
+    background-image: url('images/download.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+.container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+.loginflex{
+    margin-top:5vh;
+    display:flex;
+    flex-direction:column;
+    gap:1vh;
+}
+
+.login-btn{
+    margin-top:4vh;
+}
+.picture{
+     background-image:url('images/download.jpg')
+}
+.menu{
+    margin-top:5vh;
+    display:flex;
+    flex-direction:row;
+    gap:3vh;
+
+}
